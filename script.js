@@ -1,30 +1,25 @@
-
-const p =
-
 window.onload = function() {
-
-  // Image Drop
-	var obj = document.getElementById("image");
-	obj.addEventListener("dragover",
-			function(ev){ ev.preventDefault();}, false);
-	obj.addEventListener("drop",
-			function(ev){ ev.preventDefault(); GetImage(ev);}, false);
+  // EventListener for Drop Image
+  var obj = document.getElementById("image");
+  obj.addEventListener("drop", function(ev){ ev.preventDefault(); GetImage(ev);}, false);
 }
 
 function GetImage(ev){
 
-	var targetObj = ev.currentTarget;
-	var file = ev.dataTransfer.files[0];
-	var fileType = file.name.slice(-4).toLowerCase();
+  var targetObj = ev.currentTarget;
+  var file = ev.dataTransfer.files[0];
+  var fileType = file.name.slice(-4).toLowerCase();
 
-	if( fileType == ".jpg"){
+  if( fileType == ".jpg" ){
 
-		var reader = new FileReader();
-		reader.readAsDataURL(file);
-		reader.onloadend = function(){
+    var reader = new FileReader();
+    reader.readAsDataURL(file);
 
-			targetObj.setAttribute("src",reader.result);
+    reader.onloadend = function(){
 
+      targetObj.setAttribute("src",reader.result);
+
+      // Loading the model.
       mobilenet.load().then(model => {
         // Classify the image.
         var img = document.getElementById('image');
@@ -40,12 +35,11 @@ function GetImage(ev){
         });
       });
 
-		}
+    }
 
-	}else{
-		alert("File available only .jpg");
-	}
+  }else{
+
+    alert("File available only .jpg");
+
+  }
 }
-
-
-// Load the model.

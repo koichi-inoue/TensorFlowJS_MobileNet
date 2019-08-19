@@ -1,6 +1,7 @@
 window.onload = function() {
   // EventListener for Drop Image
   var obj = document.getElementById("image");
+  obj.addEventListener("dragover",function(ev){ ev.preventDefault();}, false);
   obj.addEventListener("drop", function(ev){ ev.preventDefault(); GetImage(ev);}, false);
 }
 
@@ -23,7 +24,7 @@ function GetImage(ev){
       mobilenet.load().then(model => {
         // Classify the image.
         var img = document.getElementById('image');
-        model.classify(img).then(predictions => {
+        model.classify(img,4).then(predictions => {
           var txt="";
           for(i=0; i<predictions.length; i++){
            txt += "ClassName：" + predictions[i].className +'<br>';

@@ -24,7 +24,7 @@ function GetImage(ev){
       mobilenet.load().then(model => {
         // Classify the image.
         var img = document.getElementById('image');
-        model.classify(img,4).then(predictions => {
+        model.classify(img).then(predictions => {
           var txt="";
           for(i=0; i<predictions.length; i++){
            txt += "ClassName：" + predictions[i].className +'<br>';
